@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- DAO랑 DB랑 작업할 때 필요한 SQL을 불러옵니다 -->
+
+<mapper namespace="member">
+	<select id="list" resultType="com.poseidon.web.MemberDTO">
+		<!-- SQL쿼리문 작성 -->
+		SELECT * FROM member
+	</select>
+
+</mapper>
