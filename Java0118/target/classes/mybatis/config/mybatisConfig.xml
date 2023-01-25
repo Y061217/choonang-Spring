@@ -6,4 +6,15 @@
 <!-- 설정이 여기 들어갑니다  -->
 <configuration>
 	
+	<typeAliases>
+		<typeAlias type="com.poseidon.web.dto.BoardDTO" alias="boardDTO"/>
+		
+		<typeAlias type="com.poseidon.web.dto.LoginDTO" alias="loginDTO"/>
+	</typeAliases>
+	
+	
+	
+	
+	
+	
 </configuration>

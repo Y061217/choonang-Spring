@@ -15,7 +15,7 @@ public class IndexDAO {
 
 	public List<MemberDTO> list() {
 		
-		return sqlSession.selectList("member.list");//네임스페이스.id
+		return sqlSession.selectList("member.list");//네임스페이스.id 한줄 불러옴
 	}
 	
 	

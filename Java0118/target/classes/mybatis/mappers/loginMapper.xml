@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- DAO랑 DB랑 작업할 때 필요한 SQL을 불러옵니다 -->
+
+<mapper namespace="login">
+	<!-- resultMap 만들기 -->
+	<!-- resultMap은 DB의 컬럼명과 DTO의 변수명이 서로 일치하지 않을 경우(자동 매핑 불가 시), 그 구조를 변경하여 
+		사용가능하도록 해줍니다 -->
+	<resultMap type="loginDTO" id="login">
+		<id column = "member_no" property="no"/> <!-- P값 -->
+		<result column = "member_id" property="id"/>
+		<result column = "member_pw" property="pw"/>
+		<result column = "member_name" property="name"/>
+		<result column = "member_age" property="age"/>
+		<result column = "member_tel" property="tel"/>
+		<result column = "member_email" property="email"/>
+	</resultMap>
+
+	<select id="login" resultMap="login" parameterType="loginDTO">
+		<!-- SQL쿼리문 작성 -->
+		SELECT *, COUNT(*) as count
+		FROM member
+		WHERE member_id = #{id} AND member_pw= #{pw}
+	</select>
+
+</mapper>
+
