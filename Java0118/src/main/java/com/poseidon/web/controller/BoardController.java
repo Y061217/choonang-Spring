@@ -53,9 +53,13 @@ public class BoardController {
 		String bno = request.getParameter("b_no"); // url에서 ?b_no 뒤에 있는 데이터 추출
 		BoardDTO dto = new BoardDTO();
 		dto.setB_no(Integer.parseInt(bno));
-
+		
 		dto = boardService.detail(dto);
+		
 		mv.addObject("detail", dto);
+		
+		List<BoardDTO> dto2 = boardService.c_comment(dto);
+		mv.addObject("C_comment" , dto2);
 		return mv;
 	}
 

@@ -48,6 +48,11 @@ public class BoardService {
 		boardDAO.comment(dto);
 	}
 
+	public List<BoardDTO> c_comment(BoardDTO dto) {
+		// TODO Auto-generated method stub
+		return boardDAO.c_comment(dto);
+	}
+
 
 
 }

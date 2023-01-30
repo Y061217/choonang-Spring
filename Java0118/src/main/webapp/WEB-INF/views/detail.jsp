@@ -36,23 +36,26 @@ $(function(){
 })
 </script>
 <style type="text/css">
-.commentform{
-   width: 100%;
-   height: 100px;
-   background-color: gray;
-   padding: 5px;
+.commentform {
+	width: 100%;
+	height: 100px;
+	background-color: gray;
+	padding: 5px;
 }
+
 .commentform textarea, button {
-   margin: 0;
-   padding: 0;
-   height: 90px;
+	margin: 0;
+	padding: 0;
+	height: 90px;
 }
-.commentform textarea{
-   width: calc(100% - 110px); 
+
+.commentform textarea {
+	width: calc(100% - 110px);
 }
-.commentform button{
-   width: 100px;
-   vertical-align: top;
+
+.commentform button {
+	width: 100px;
+	vertical-align: top;
 }
 </style>
 </head>
@@ -64,7 +67,28 @@ $(function(){
 	<div>
 		${detail.b_no }<br> ${detail.b_title }<br>
 		${detail.b_content }<br>${detail.b_write }<br>
-		${detail.b_date }<br> ${detail.b_like }<br>
+		${detail.b_date }<br> ${detail.b_like }<br> 댓글 수 :
+		${detail.comment}<br>
+
+		<table style = "background-color : #afe1ff; text-align : center;">
+			<thead>
+				<tr>
+					<th scope="col">글쓴이 번호</th>
+					<th scope="col">댓글 내용</th>
+					<th scope="col">댓글 시간</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${C_comment }" var="c">
+					<tr>
+						<td>${c.member_no }</td>
+						<td>${c.c_comment }</td>
+						<td>${c.c_date }</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+
 	</div>
 
 	<button type="button" class="btn btn-primary" onclick="board()">게시판으로</button>
@@ -73,24 +97,19 @@ $(function(){
 			onclick="del(${detail.b_no})">삭제</button>
 		<button type="button" class="btn btn-primary" id="update">수정</button>
 	</c:if>
-	
+
 	<c:if test="${sessionScope.id ne null }">
 		<div class="commntform">
 			<form action="./comment" method="post">
-				<textarea name = comment></textarea>
-				<input type="hidden" name = "b_no" value="${detail.b_no }">
+				<textarea name=comment></textarea>
+				<input type="hidden" name="b_no" value="${detail.b_no }">
 				<button type="submit">댓글 남기기</button>
 			</form>
 		</div>
 	</c:if>
-	
-	
-	
+
+
+
 </body>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-	crossorigin="anonymous">
-	
-</script>
+
 </html>

@@ -34,8 +34,7 @@
 		resultType="boardDTO">
 		<!-- SQL쿼리문 작성 -->
 		SELECT b_no, b_title, b_content, member_name, b_date,
-		b_like ,
-		member_id
+		b_like , comment, member_id
 		FROM boardview
 		WHERE b_no=#{b_no}
 		<if test="member_id != null">
@@ -43,6 +42,12 @@
 		</if>
 		
 
+	</select>
+	
+	<select id="c_comment" parameterType="boardDTO" resultType="boardDTO">
+	select *
+	From comments
+	Where b_no = #{b_no};
 	</select>
 
 	<insert id="write" parameterType="boardDTO">

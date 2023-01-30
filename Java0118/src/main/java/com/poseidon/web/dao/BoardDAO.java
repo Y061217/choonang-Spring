@@ -55,5 +55,10 @@ public class BoardDAO {
 		sqlSession.update("board.comment", dto);
 	}
 
+	public List<BoardDTO> c_comment(BoardDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("board.c_comment", dto);
+	}
+
 
 }
