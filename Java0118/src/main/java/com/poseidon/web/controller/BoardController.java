@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +30,7 @@ public class BoardController {
 
 	@Autowired
 	private BoardService boardService;
-	
+
 	@Autowired
 	private Util util;
 
@@ -47,7 +48,7 @@ public class BoardController {
 	}
 
 	@GetMapping("/detail")
-	public ModelAndView detail(HttpServletRequest request , HttpSession session) {
+	public ModelAndView detail(HttpServletRequest request, HttpSession session) {
 		ModelAndView mv = new ModelAndView("detail");
 		String bno = request.getParameter("b_no"); // url에서 ?b_no 뒤에 있는 데이터 추출
 		BoardDTO dto = new BoardDTO();
@@ -74,8 +75,7 @@ public class BoardController {
 		System.out.println(content);
 
 		BoardDTO dto = new BoardDTO();
-		
-		
+
 		dto.setB_title(title);
 		dto.setB_content(content);
 		dto.setMember_id((String) session.getAttribute("id"));
@@ -93,35 +93,50 @@ public class BoardController {
 	}
 
 	@GetMapping("/update")
-	public ModelAndView update(HttpServletRequest request , HttpSession session) {
+	public ModelAndView update(HttpServletRequest request, HttpSession session) {
 		ModelAndView mv = new ModelAndView("update");
-		BoardDTO dto = new BoardDTO();		
+		BoardDTO dto = new BoardDTO();
 		dto.setB_no(Integer.parseInt(request.getParameter("no")));
-		dto.setMember_id((String)session.getAttribute("id"));
+		dto.setMember_id((String) session.getAttribute("id"));
 		dto = boardService.detail(dto);
-		
-		if(dto == null) {
-			mv.setViewName("error"); //error.jsp
+
+		if (dto == null) {
+			mv.setViewName("error"); // error.jsp
 		} else {
-			mv.addObject("update", dto);			
-		}	
+			mv.addObject("update", dto);
+		}
 		return mv;
 	}
-	
+
 	@PostMapping("/update")
 	public String update2(HttpServletRequest request) {
 		int no = Integer.parseInt(request.getParameter("no"));
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-		
+
 		BoardDTO dto = new BoardDTO();
 		dto.setB_content(content);
 		dto.setB_title(util.changeText(title));
 		dto.setB_no(no);
-		
+
 		boardService.update(dto);
+
+		return "redirect:/detail?b_no=" + no;
+	}
+
+	@PostMapping("/comment")
+	public String comment(@RequestParam("comment") String c_comment, @RequestParam("b_no") int b_no,
+			HttpSession session) {
+		BoardDTO dto = new BoardDTO();
+		String member_id = (String)session.getAttribute("id");
+		dto.setB_no(b_no);
+		dto.setMember_id(member_id);
+		dto.setC_comment(c_comment);
+		boardService.comment(dto);
 		
-		return "redirect:/detail?b_no="+no;
+		
+
+		return "redirect:/detail?b_no=" + b_no;
 	}
 
 }

@@ -66,6 +66,7 @@ $(function(){
 		${detail.b_content }<br>${detail.b_write }<br>
 		${detail.b_date }<br> ${detail.b_like }<br>
 	</div>
+
 	<button type="button" class="btn btn-primary" onclick="board()">게시판으로</button>
 	<c:if test="${detail.member_id eq sessionScope.id}">
 		<button type="button" class="btn btn-primary"
@@ -75,13 +76,16 @@ $(function(){
 	
 	<c:if test="${sessionScope.id ne null }">
 		<div class="commntform">
-			<form action=" " method="post">
-				<textarea></textarea>
-				<input type="hidden" value="${detail.b_no }">
+			<form action="./comment" method="post">
+				<textarea name = comment></textarea>
+				<input type="hidden" name = "b_no" value="${detail.b_no }">
 				<button type="submit">댓글 남기기</button>
 			</form>
 		</div>
 	</c:if>
+	
+	
+	
 </body>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"

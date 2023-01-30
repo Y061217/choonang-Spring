@@ -37,6 +37,14 @@
 		</repository>
 	</repositories>
 	<dependencies>
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.24</version>
+			<scope>provided</scope>
+		</dependency>
+
 
 		<!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
 		<dependency>
@@ -52,14 +60,14 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 
-		<!--	전자정부	페이징	-->
+		<!-- 전자정부 페이징 -->
 		<dependency>
 			<groupId>egovframework.rte</groupId>
 			<artifactId>egovframework.rte.ptl.mvc</artifactId>
 			<version>3.8.0</version>
 		</dependency>
 
-		<!--	파일업로드	-->
+		<!-- 파일업로드 -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>

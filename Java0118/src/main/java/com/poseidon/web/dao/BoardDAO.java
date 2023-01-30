@@ -49,5 +49,11 @@ public class BoardDAO {
 		// TODO Auto-generated method stub
 		sqlSession.update("board.read", dto);
 	}
-	
+
+	public void comment(BoardDTO dto) {
+		// TODO Auto-generated method stub
+		sqlSession.update("board.comment", dto);
+	}
+
+
 }

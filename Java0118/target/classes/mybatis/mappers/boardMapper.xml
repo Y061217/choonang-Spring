@@ -9,35 +9,39 @@
 <mapper namespace="board">
 	<select id="list" resultType="boardDTO">
 		<!-- SQL쿼리문 작성 -->
-<!-- 		SELECT b_no, b_title, member_name, b_date, -->
+		<!-- SELECT b_no, b_title, member_name, b_date, -->
 
-<!-- 		,b_like, b_read -->
-<!-- 		FROM boardview ORDER -->
-<!-- 		BY b_no -->
-<!-- 		DESC -->
-		
-	select `b`.`b_no` AS `b_no`,`b`.`b_title` AS `b_title`,
-`b`.`b_content` AS `b_content`,`b`.`member_no` AS `member_no`,
-`m`.`member_name` AS `member_name`,`m`.`member_id` AS `member_id`,
-`b`.`b_date` AS `b_date`,
-if(date_format(current_timestamp(),'%Y-%m-%d') = date_format(`b`.`b_date`,'%Y-%m-%d'),
-date_format(`b`.`b_date`,'%H:%i'),date_format(`b`.`b_date`,'%m-%d')) AS `listdate`,
-`b`.`b_like` AS `b_like`,`b`.`b_read` AS `b_read`,
-(SELECT COUNT(*) FROM comments co WHERE b.b_no = co.b_no) AS 'comment' 
-from (`board` `b` join `member` `m` on(`b`.`member_no` = `m`.`member_no`)) 
-order by `b`.`b_no` desc	
+		<!-- ,b_like, b_read -->
+		<!-- FROM boardview ORDER -->
+		<!-- BY b_no -->
+		<!-- DESC -->
+
+		select `b`.`b_no` AS `b_no`,`b`.`b_title` AS `b_title`,
+		`b`.`b_content` AS `b_content`,`b`.`member_no` AS `member_no`,
+		`m`.`member_name` AS `member_name`,`m`.`member_id` AS `member_id`,
+		`b`.`b_date` AS `b_date`,
+		if(date_format(current_timestamp(),'%Y-%m-%d') =
+		date_format(`b`.`b_date`,'%Y-%m-%d'),
+		date_format(`b`.`b_date`,'%H:%i'),date_format(`b`.`b_date`,'%m-%d'))
+		AS `listdate`,
+		`b`.`b_like` AS `b_like`,`b`.`b_read` AS `b_read`,
+		(SELECT COUNT(*) FROM comments co WHERE b.b_no = co.b_no) AS 'comment'
+		from (`board` `b` join `member` `m` on(`b`.`member_no` = `m`.`member_no`))
+		order by `b`.`b_no` desc
 	</select>
 
 	<select id="detail" parameterType="boardDTO"
 		resultType="boardDTO">
 		<!-- SQL쿼리문 작성 -->
 		SELECT b_no, b_title, b_content, member_name, b_date,
-		b_like , member_id
+		b_like ,
+		member_id
 		FROM boardview
 		WHERE b_no=#{b_no}
 		<if test="member_id != null">
 			AND member_id = #{member_id}
 		</if>
+		
 
 	</select>
 
@@ -47,7 +51,8 @@ order by `b`.`b_no` desc
 		SET
 		b_title = #{b_title },
 		b_content = #{b_content },
-		member_no = (SELECT member_no FROM member WHERE member_id=#{member_id}),
+		member_no = (SELECT member_no FROM member WHERE
+		member_id=#{member_id}),
 		b_date = now(),
 		b_read = 1
 	</insert>
@@ -64,18 +69,30 @@ order by `b`.`b_no` desc
 	<update id="update" parameterType="boardDTO">
 		UPDATE board
 		SET
-		b_title = #{b_title} , b_content = #{b_content}
+		b_title =
+		#{b_title} , b_content = #{b_content}
 		WHERE b_no=#{b_no}
 
 	</update>
-	
+
 	<update id="read" parameterType="boardDTO">
 		UPDATE board
 		SET
-		b_read = b_read + 1
+		b_read = b_read +
+		1
 		WHERE b_no=#{b_no}
 
 	</update>
+
+	<insert id="comment" parameterType="boardDTO">
+		INSERT INTO comments
+		SET
+		b_no = #{b_no},
+		member_no = (SELECT member_no FROM member WHERE member_id = #{member_id}),
+		c_comment = #{c_comment},
+		c_date = now()
+
+	</insert>
 
 </mapper>
 

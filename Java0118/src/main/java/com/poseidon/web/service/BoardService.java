@@ -43,4 +43,11 @@ public class BoardService {
 		boardDAO.update(dto);
 	}
 
+	public void comment(BoardDTO dto) {
+		// TODO Auto-generated method stub
+		boardDAO.comment(dto);
+	}
+
+
+
 }
