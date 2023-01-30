@@ -26,6 +26,24 @@
 		FROM member
 		WHERE member_id = #{id} AND member_pw= #{pw}
 	</select>
+	
+	<insert id="join" parameterType="joinDTO">
+		INSERT INTO member
+		SET
+		member_name = #{name} ,
+		member_id = #{id} ,
+		member_pw = #{pw} ,
+		member_email = #{email}
+	</insert>
+	
+	
+	<select id="checkID" parameterType="String" resultType="String">
+		<!-- SQL쿼리문 작성 -->
+		SELECT COUNT(*)
+		FROM member
+		WHERE member_id = #{id};
+	</select>
+	
 
 </mapper>
 

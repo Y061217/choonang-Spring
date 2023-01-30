@@ -33,5 +33,21 @@ public class BoardDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.insert("board.write", dto);
 	}
+
+	public void delete(BoardDTO dto) {
+		// TODO Auto-generated method stub
+		sqlSession.delete("board.delete" , dto);
+		
+	}
+
+	public void update(BoardDTO dto) {
+		// TODO Auto-generated method stub
+		sqlSession.update("board.update", dto);
+	}
+
+	public void read(BoardDTO dto) {
+		// TODO Auto-generated method stub
+		sqlSession.update("board.read", dto);
+	}
 	
 }

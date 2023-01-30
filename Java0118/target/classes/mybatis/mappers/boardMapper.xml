@@ -9,30 +9,64 @@
 <mapper namespace="board">
 	<select id="list" resultType="boardDTO">
 		<!-- SQL쿼리문 작성 -->
-		SELECT b_no, b_title, b_write, b_date, b_like
-		FROM board ORDER BY b_no DESC limit 0, 10
+<!-- 		SELECT b_no, b_title, member_name, b_date, -->
+
+<!-- 		,b_like, b_read -->
+<!-- 		FROM boardview ORDER -->
+<!-- 		BY b_no -->
+<!-- 		DESC -->
+		
+		select `b`.`b_no` AS `b_no`,`b`.`b_title` AS `b_title`,`b`.`b_content` AS `b_content`,`b`.`member_no` AS `member_no`,`m`.`member_name` AS `member_name`,`m`.`member_id` AS `member_id`,`b`.`b_date` AS `b_date`,if(date_format(current_timestamp(),'%Y-%m-%d') = date_format(`b`.`b_date`,'%Y-%m-%d'),date_format(`b`.`b_date`,'%H:%i'),date_format(`b`.`b_date`,'%m-%d')) AS `list_date`,`b`.`b_like` AS `b_like`,`b`.`b_read` AS `b_read` from (`board` `b` join `member` `m` on(`b`.`member_no` = `m`.`member_no`)) order by `b`.`b_no` desc
 	</select>
 
 	<select id="detail" parameterType="boardDTO"
 		resultType="boardDTO">
 		<!-- SQL쿼리문 작성 -->
-		SELECT b_no, b_title, b_content, b_write, b_date, b_like
-		FROM board
+		SELECT b_no, b_title, b_content, member_name, b_date,
+		b_like
+		FROM boardview
 		WHERE b_no=#{b_no}
+		<if test="member_id != null">
+			AND member_id = #{member_id}
+		</if>
+
 	</select>
 
 	<insert id="write" parameterType="boardDTO">
 		<!-- SQL쿼리문 작성 -->
-
 		INSERT INTO board
 		SET
 		b_title = #{b_title },
 		b_content = #{b_content },
-		b_write = #{b_write },
+		member_no = (SELECT member_no FROM member WHERE member_id=#{member_id}),
 		b_date = now(),
-		b_like = 1
+		b_read = 1
 	</insert>
 
+	<delete id="delete" parameterType="boardDTO">
+		<!-- <![CDATA[ sql문 ]]> 대괄호 안에 부등호 < >를 문자로 인식 -->
+		<![CDATA[
+		DELETE FROM board
+		WHERE b_no=#{b_no} AND member_no
+		=(SELECT member_no FROM member WHERE member_id = #{member_id })
+		]]>
+	</delete>
+
+	<update id="update" parameterType="boardDTO">
+		UPDATE board
+		SET
+		b_title = #{b_title} , b_content = #{b_content}
+		WHERE b_no=#{b_no}
+
+	</update>
+	
+	<update id="read" parameterType="boardDTO">
+		UPDATE board
+		SET
+		b_read = b_read + 1
+		WHERE b_no=#{b_no}
+
+	</update>
 
 </mapper>
 

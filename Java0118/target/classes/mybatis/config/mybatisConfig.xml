@@ -10,6 +10,8 @@
 		<typeAlias type="com.poseidon.web.dto.BoardDTO" alias="boardDTO"/>
 		
 		<typeAlias type="com.poseidon.web.dto.LoginDTO" alias="loginDTO"/>
+		
+		<typeAlias type="com.poseidon.web.dto.JoinDTO" alias="joinDTO"/>
 	</typeAliases>
 	
 	

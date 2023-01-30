@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.poseidon.web.dto.JoinDTO;
 import com.poseidon.web.dto.LoginDTO;
+import com.poseidon.web.service.BoardService;
 import com.poseidon.web.service.LoginService;
 
 @Controller
@@ -80,4 +83,32 @@ public class LoginController {
 		return "redirect:/login";
 	}
 
+	@GetMapping("/join")
+	public String join() {
+		return "join";
+	}
+	//post join = 회원가입정보를 다 입력하고 가입하기를 눌렀을 때
+	/// check = 중복여부를 확인하는 메소드
+	
+	@PostMapping("/join")
+	public String join(HttpServletRequest request) {
+		String name = request.getParameter("name");
+		String id = request.getParameter("id");
+		String pw = request.getParameter("pw1");
+		String email = request.getParameter("email");
+		
+		JoinDTO dto = new JoinDTO(name,id,pw,email);
+		int result = loginService.join(dto);
+		System.out.println(result);
+		return "login";
+	}
+	
+	@PostMapping("/checkID")
+	@ResponseBody
+	public String checkID(HttpServletRequest request) {
+		System.out.println("아이디는"+request.getParameter("id"));
+		String id = request.getParameter("id");
+		id = loginService.checkID(id);
+		return id;
+	}
 }

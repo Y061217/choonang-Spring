@@ -1,7 +1,21 @@
 package com.poseidon.web.dto;
 
 public class BoardDTO {
-	private int b_no , b_like;
+	private int b_no , b_like, b_read;
+	public int getB_read() {
+		return b_read;
+	}
+	public void setB_read(int b_read) {
+		this.b_read = b_read;
+	}
+	private String b_title , b_content , b_date , b_write , member_name , member_id;
+	
+	public String getMember_id() {
+		return member_id;
+	}
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
+	}
 	public int getB_no() {
 		return b_no;
 	}
@@ -10,6 +24,12 @@ public class BoardDTO {
 	}
 	public int getB_like() {
 		return b_like;
+	}
+	public String getMember_name() {
+		return member_name;
+	}
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
 	}
 	public void setB_like(int b_like) {
 		this.b_like = b_like;
@@ -38,5 +58,5 @@ public class BoardDTO {
 	public void setB_write(String b_write) {
 		this.b_write = b_write;
 	}
-	private String b_title , b_content , b_date , b_write;
+	
 }

@@ -86,7 +86,8 @@ $(function() {
 			</tr>
 
 			<tr height="40">
-				<td colspan="3" align="center">회원가입 | 아이디/패스워드 찾기</td>
+				<td colspan="2" align="center">회원가입</td>
+				<td colspan="1" align="center">아이디/패스워드 찾기</td>
 			</tr>
 
 		</table>

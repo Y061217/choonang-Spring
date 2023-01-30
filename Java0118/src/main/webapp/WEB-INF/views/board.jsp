@@ -48,10 +48,10 @@ function write1() {
 			<c:forEach items="${board }" var="row">
 				<tr>
 					<td>${row.b_no }</td>
-					<td class="title"><a href="./detail?b_no=${row.b_no }">${row.b_title }</td>
-					<td>${row.b_write }</td>
+					<td class="title"><a href="./detail?b_no=${row.b_no }">${row.b_title } [${row.b_like }]</td>
+					<td>${row.member_name }</td>
 					<td>${row.b_date }</td>
-					<td>${row.b_like }</td>
+					<td>${row.b_read }</td>
 				</tr>
 			</c:forEach>
 		</tbody>

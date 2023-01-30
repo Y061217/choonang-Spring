@@ -10,24 +10,37 @@ import com.poseidon.web.dao.BoardDAO;
 
 @Service
 public class BoardService {
-	
+
 	@Autowired
 	private BoardDAO boardDAO;
-	
+
 	public List<BoardDTO> list() {
-		
+
 		return boardDAO.list();
 	}
 
 	public BoardDTO detail(BoardDTO dto) {
-		
+		// 조회수 +1 기능
+			boardDAO.read(dto);
 		return boardDAO.detail(dto);
 	}
 
 	public int write(BoardDTO dto) {
-		
+
 		return boardDAO.write(dto);
 	}
 
-	
+	public void delete(int no, String attribute) {
+		BoardDTO dto = new BoardDTO();
+		dto.setB_no(no);
+		dto.setMember_id(attribute);
+		boardDAO.delete(dto);
+
+	}
+
+	public void update(BoardDTO dto) {
+		// TODO Auto-generated method stub
+		boardDAO.update(dto);
+	}
+
 }
