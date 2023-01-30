@@ -1,7 +1,20 @@
 package com.poseidon.web.dto;
 
 public class BoardDTO {
-	private int b_no , b_like, b_read;
+	private int b_no , b_like, b_read, comment;
+	private String listdate;
+	public int getComment() {
+		return comment;
+	}
+	public String getListdate() {
+		return listdate;
+	}
+	public void setListdate(String listdate) {
+		this.listdate = listdate;
+	}
+	public void setComment(int comment) {
+		this.comment = comment;
+	}
 	public int getB_read() {
 		return b_read;
 	}

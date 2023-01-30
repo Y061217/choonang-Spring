@@ -20,7 +20,16 @@ table {
 }
 
 .title {
-	text-align: center;
+	text-align: left;
+}
+
+small {
+	color : red;
+}
+
+a {
+	color : black;
+	text-decoration : none;
 }
 </style>
 <script>
@@ -48,9 +57,9 @@ function write1() {
 			<c:forEach items="${board }" var="row">
 				<tr>
 					<td>${row.b_no }</td>
-					<td class="title"><a href="./detail?b_no=${row.b_no }">${row.b_title } [${row.b_like }]</td>
+					<td class="title"><span class = "badge bg-secondary">${row.b_like }</span><a href="./detail?b_no=${row.b_no }">${row.b_title }<c:if test="${row.comment ne 0}"><small>${row.comment }</small></c:if></a></td>
 					<td>${row.member_name }</td>
-					<td>${row.b_date }</td>
+					<td>${row.listdate }</td>
 					<td>${row.b_read }</td>
 				</tr>
 			</c:forEach>

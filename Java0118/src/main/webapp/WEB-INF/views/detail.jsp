@@ -7,7 +7,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>톺아보기</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <link href="./css/detail.css" rel="stylesheet">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
@@ -34,6 +35,26 @@ $(function(){
 	
 })
 </script>
+<style type="text/css">
+.commentform{
+   width: 100%;
+   height: 100px;
+   background-color: gray;
+   padding: 5px;
+}
+.commentform textarea, button {
+   margin: 0;
+   padding: 0;
+   height: 90px;
+}
+.commentform textarea{
+   width: calc(100% - 110px); 
+}
+.commentform button{
+   width: 100px;
+   vertical-align: top;
+}
+</style>
 </head>
 <body>
 	<jsp:include page="menu.jsp" />
@@ -42,13 +63,24 @@ $(function(){
 
 	<div>
 		${detail.b_no }<br> ${detail.b_title }<br>
-		${detail.b_content }<br> ${detail.b_write }<br>
+		${detail.b_content }<br>${detail.b_write }<br>
 		${detail.b_date }<br> ${detail.b_like }<br>
 	</div>
 	<button type="button" class="btn btn-primary" onclick="board()">게시판으로</button>
 	<c:if test="${detail.member_id eq sessionScope.id}">
-	<button type="button" class="btn btn-primary" onclick="del(${detail.b_no})">삭제</button>
-	<button type="button" class="btn btn-primary" id="update">수정</button>
+		<button type="button" class="btn btn-primary"
+			onclick="del(${detail.b_no})">삭제</button>
+		<button type="button" class="btn btn-primary" id="update">수정</button>
+	</c:if>
+	
+	<c:if test="${sessionScope.id ne null }">
+		<div class="commntform">
+			<form action=" " method="post">
+				<textarea></textarea>
+				<input type="hidden" value="${detail.b_no }">
+				<button type="submit">댓글 남기기</button>
+			</form>
+		</div>
 	</c:if>
 </body>
 <script
