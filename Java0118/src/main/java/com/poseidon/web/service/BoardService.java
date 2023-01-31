@@ -58,6 +58,11 @@ public class BoardService {
 		
 	}
 
+	public int upcmt(BoardDTO upcmt) {
+		return boardDAO.upcmt(upcmt);
+		
+	}
+
 
 
 }

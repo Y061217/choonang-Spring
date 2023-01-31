@@ -65,5 +65,10 @@ public class BoardDAO {
 		
 	}
 
+	public int upcmt(BoardDTO upcmt) {
+		return sqlSession.update("board.upcmt", upcmt);
+		
+	}
+
 
 }

@@ -103,6 +103,14 @@
 		UPDATE comments SET c_del = 0
 		WHERE c_no = #{c_no} AND member_no=(SELECT member_no FROM member WHERE member_id=#{member_id})
 	</update>
+	
+		<update id="upcmt" parameterType="boardDTO">
+		UPDATE comments
+		SET
+		c_comment = #{c_comment}
+		WHERE c_no = #{c_no}
+
+	</update>
 </mapper>
 
 

@@ -39,7 +39,6 @@ $(function(){
 	$(".del").click(function(){
 		if(confirm("삭제하시겠습니까?")){
 			var choose = $(this).siblings(".c_no").text();
-			var commentbox = $(this).parents(".comment");
 			//제이쿼리와 에이잭스로 해당 댓글을 지우고, 서버에 삭제 명령 전송, 화면 전환 없이 부드럽게 작동
 			//DB에서 지우기 ajax() , post() , get()
 			$.post({
@@ -54,8 +53,61 @@ $(function(){
 		}
 	})
 })
+
+$(function(){
+	var choose = 0;
+	$(".upd").click(function(){
+		if(confirm("수정하시겠습니까?")){
+			choose = $(this).siblings(".c_no").text();
+			var context = $(this).siblings(".cm_text");
+			$(".upd").css("display","none");
+ 			$(".del").css("visibility","hidden");
+			context.append("<br><textarea class='upcmt'></textarea><br><button id='send'>수정하기</button>");
+		}
+	});
+	
+	$(".c_comment").on('click','#send',function(){
+		alert("로딩중");
+		$.post({
+			url : "./upcmt" ,
+			data : {"c_no" : choose  , "upcmt" : $('textarea').val()}
+		
+		}).done(function(data){
+		$.ajax({
+				type : "get",
+				url : "./detail",
+				data : {"d_no"  : "18"}
+			})
+			//갱신해오기
+			
+			alert("!");
+			
+
+			$(".tobody").empty();
+			let temp_html = `
+				<c:forEach items="${C_comment }" var="c">
+				<tr class="comment">
+					<td>${c.member_name }님</td>
+					<td class="c_comment">
+						<div class="c_no" style="visibility: hidden;">${c.c_no }</div> <label
+						class="cm_text">${c.c_comment }</label> &nbsp <c:if
+							test="${c.member_id eq sessionScope.id}">
+							<button class="del">삭제</button>
+							<button class="upd">수정</button>
+						</c:if>
+					</td>
+					<td>${c.c_date }</td>
+				</tr>
+			</c:forEach>
+			`
+			$(".tobody").append(temp_html);
+		})
+	})
+})
+	
 </script>
-<style type="text/css">
+
+<style>
 .commentform {
 	width: 100%;
 	height: 100px;
@@ -98,15 +150,18 @@ $(function(){
 					<th scope="col">댓글 시간</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody class="tobody">
 				<c:forEach items="${C_comment }" var="c">
 					<tr class="comment">
 						<td>${c.member_name }님</td>
-						<td><div class="c_no" style="visibility: hidden;">${c.c_no }</div>${c.c_comment }
-							&nbsp <c:if test="${c.member_id eq sessionScope.id}">
+						<td class="c_comment">
+							<div class="c_no" style="visibility: hidden;">${c.c_no }</div> <label
+							class="cm_text">${c.c_comment }</label> &nbsp <c:if
+								test="${c.member_id eq sessionScope.id}">
 								<button class="del">삭제</button>
 								<button class="upd">수정</button>
-							</c:if></td>
+							</c:if>
+						</td>
 						<td>${c.c_date }</td>
 					</tr>
 				</c:forEach>

@@ -164,5 +164,17 @@ public class BoardController {
 		
 		return result;
 	}
+	
+	@PostMapping("/upcmt")
+	@ResponseBody
+	public String upcmt(HttpServletRequest request) {
+		String result = "0";
+		HttpSession session = request.getSession();
+		BoardDTO upcmt = new BoardDTO();
+		upcmt.setC_no(util.str2Int(request.getParameter("c_no")));
+		upcmt.setC_comment(request.getParameter("upcmt"));
+		result = boardService.upcmt(upcmt)+"";
 
+		return result;
+	}
 }
