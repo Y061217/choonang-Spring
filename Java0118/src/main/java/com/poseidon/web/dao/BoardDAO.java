@@ -60,5 +60,10 @@ public class BoardDAO {
 		return sqlSession.selectList("board.c_comment", dto);
 	}
 
+	public int commentDel(BoardDTO comment) {
+		return sqlSession.update("board.commentdel", comment);
+		
+	}
+
 
 }

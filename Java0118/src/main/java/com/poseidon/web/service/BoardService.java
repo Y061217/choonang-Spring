@@ -53,6 +53,11 @@ public class BoardService {
 		return boardDAO.c_comment(dto);
 	}
 
+	public int commentDel(BoardDTO comment) {
+		return boardDAO.commentDel(comment);
+		
+	}
+
 
 
 }

@@ -25,7 +25,7 @@
 		date_format(`b`.`b_date`,'%H:%i'),date_format(`b`.`b_date`,'%m-%d'))
 		AS `listdate`,
 		`b`.`b_like` AS `b_like`,`b`.`b_read` AS `b_read`,
-		(SELECT COUNT(*) FROM comments co WHERE b.b_no = co.b_no) AS 'comment'
+		(SELECT COUNT(*) FROM comments co WHERE b.b_no = co.b_no AND co.c_del = 1) AS 'comment'
 		from (`board` `b` join `member` `m` on(`b`.`member_no` = `m`.`member_no`))
 		order by `b`.`b_no` desc
 	</select>
@@ -46,8 +46,8 @@
 	
 	<select id="c_comment" parameterType="boardDTO" resultType="boardDTO">
 	select *
-	From comments
-	Where b_no = #{b_no};
+	From comments join member on comments.member_no = member.member_no
+	Where b_no = #{b_no} AND c_del = 1;
 	</select>
 
 	<insert id="write" parameterType="boardDTO">
@@ -99,6 +99,10 @@
 
 	</insert>
 
+	<update id="commentdel" parameterType="boardDTO">
+		UPDATE comments SET c_del = 0
+		WHERE c_no = #{c_no} AND member_no=(SELECT member_no FROM member WHERE member_id=#{member_id})
+	</update>
 </mapper>
 
 

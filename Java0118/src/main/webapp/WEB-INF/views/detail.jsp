@@ -34,6 +34,26 @@ $(function(){
 	})
 	
 })
+
+$(function(){
+	$(".del").click(function(){
+		if(confirm("삭제하시겠습니까?")){
+			var choose = $(this).siblings(".c_no").text();
+			var commentbox = $(this).parents(".comment");
+			//제이쿼리와 에이잭스로 해당 댓글을 지우고, 서버에 삭제 명령 전송, 화면 전환 없이 부드럽게 작동
+			//DB에서 지우기 ajax() , post() , get()
+			$.post({
+				url : "./commentDel" ,
+				data : {"c_no" : choose}	
+			}).done(function(data){
+				alert("서버 응답 :" + data);
+				commentbox.hide();
+			}); 
+			
+			
+		}
+	})
+})
 </script>
 <style type="text/css">
 .commentform {
@@ -70,7 +90,7 @@ $(function(){
 		${detail.b_date }<br> ${detail.b_like }<br> 댓글 수 :
 		${detail.comment}<br>
 
-		<table style = "background-color : #afe1ff; text-align : center;">
+		<table style="background-color: #afe1ff; text-align: center;">
 			<thead>
 				<tr>
 					<th scope="col">글쓴이 번호</th>
@@ -80,9 +100,13 @@ $(function(){
 			</thead>
 			<tbody>
 				<c:forEach items="${C_comment }" var="c">
-					<tr>
-						<td>${c.member_no }</td>
-						<td>${c.c_comment }</td>
+					<tr class="comment">
+						<td>${c.member_name }님</td>
+						<td><div class="c_no" style="visibility: hidden;">${c.c_no }</div>${c.c_comment }
+							&nbsp <c:if test="${c.member_id eq sessionScope.id}">
+								<button class="del">삭제</button>
+								<button class="upd">수정</button>
+							</c:if></td>
 						<td>${c.c_date }</td>
 					</tr>
 				</c:forEach>

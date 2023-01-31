@@ -1,22 +1,20 @@
 package com.poseidon.web.controller;
-
+import com.poseidon.web.util.*;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.poseidon.web.dto.BoardDTO;
 import com.poseidon.web.service.BoardService;
 import com.poseidon.web.util.Util;
-
 /*
  * 클래스 선언 위에 작성
  * @Controller : 객체 생성 + 컨트롤러 역할
@@ -59,6 +57,12 @@ public class BoardController {
 		mv.addObject("detail", dto);
 		
 		List<BoardDTO> dto2 = boardService.c_comment(dto);
+		
+		/*
+		 * for (BoardDTO boardDTO : dto2) { String string = boardDTO.getC_comment();
+		 * string = string.replaceAll("\n", "<br>"); boardDTO.setC_comment(string); }
+		 */
+		
 		mv.addObject("C_comment" , dto2);
 		return mv;
 	}
@@ -135,12 +139,30 @@ public class BoardController {
 		String member_id = (String)session.getAttribute("id");
 		dto.setB_no(b_no);
 		dto.setMember_id(member_id);
-		dto.setC_comment(c_comment);
+		dto.setC_comment(c_comment.replaceAll("\n", "<br>"));
 		boardService.comment(dto);
 		
 		
 
 		return "redirect:/detail?b_no=" + b_no;
+	}
+	
+	@PostMapping("/commentDel")
+	@ResponseBody
+	public String commentDel(HttpServletRequest request) {
+		String result = "0";
+		HttpSession session = request.getSession();
+		if(session.getAttribute("id") != null) {
+		System.out.println(request.getParameter("c_no"));
+		System.out.println(session.getAttribute("id"));
+		BoardDTO comment = new BoardDTO();
+		comment.setC_no(util.str2Int(request.getParameter("c_no")));
+		comment.setMember_id((String)session.getAttribute("id"));
+		result = boardService.commentDel(comment)+ "";
+		
+		}
+		
+		return result;
 	}
 
 }
