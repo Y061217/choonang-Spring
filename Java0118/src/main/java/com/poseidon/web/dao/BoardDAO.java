@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.poseidon.web.dto.BoardDTO;
+import com.poseidon.web.dto.PagingDTO;
 
 @Repository
 public class BoardDAO {
@@ -19,9 +20,9 @@ public class BoardDAO {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public List<BoardDTO> list() {
+	public List<BoardDTO> list(PagingDTO paging) {
 		
-		return sqlSession.selectList("board.list");//네임스페이스.아이디
+		return sqlSession.selectList("board.list" , paging);//네임스페이스.아이디
 	}
 
 	public BoardDTO detail(BoardDTO dto) {
@@ -69,6 +70,13 @@ public class BoardDAO {
 		return sqlSession.update("board.upcmt", upcmt);
 		
 	}
+
+	public int totalCount() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("board.totalCount");
+	}
+	
+	
 
 
 }

@@ -7,7 +7,7 @@
 <!-- DAO랑 DB랑 작업할 때 필요한 SQL을 불러옵니다 -->
 
 <mapper namespace="board">
-	<select id="list" resultType="boardDTO">
+	<select id="list" resultType="boardDTO" parameterType="pagingDTO">
 		<!-- SQL쿼리문 작성 -->
 		<!-- SELECT b_no, b_title, member_name, b_date, -->
 
@@ -28,7 +28,8 @@
 		(SELECT COUNT(*) FROM comments co WHERE b.b_no = co.b_no AND co.c_del = 1) AS 'comment'
 		from (`board` `b` join `member` `m` on(`b`.`member_no` = `m`.`member_no`))
 		order by `b`.`b_no` desc
-	</select>
+		LIMIT #{startPage}, #{lastPage}
+		</select>
 
 	<select id="detail" parameterType="boardDTO"
 		resultType="boardDTO">
@@ -111,6 +112,10 @@
 		WHERE c_no = #{c_no}
 
 	</update>
+	
+	<select id ="totalCount" resultType="int">
+	SELECT count(*) b_no From boardview
+	</select>
 </mapper>
 
 

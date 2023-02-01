@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.poseidon.web.dto.BoardDTO;
+import com.poseidon.web.dto.PagingDTO;
 import com.poseidon.web.service.BoardService;
 import com.poseidon.web.util.Util;
 /*
@@ -22,6 +23,8 @@ import com.poseidon.web.util.Util;
  * @Repository : 객체 생성 + DAO 역할
  * @Componet : 객체 생성 + 그 외 역할 
  */
+
+import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
 @Controller
 public class BoardController {
@@ -33,15 +36,34 @@ public class BoardController {
 	private Util util;
 
 	@GetMapping("/board")
-	public ModelAndView board() {
+	public ModelAndView board(@RequestParam(value = "pageNo", defaultValue="1") int pageNo) {
 		ModelAndView mv = new ModelAndView("board");
 		// db에서 게시판 읽어오기
 		// Controller -> Service -> DAO -> Maybatis -> DB
 
-		List<BoardDTO> board = boardService.list();
+		//1. 전체 글의 갯수를 DB에 확인
+		int totalRecordCount = boardService.totalCount();
+		System.out.println(totalRecordCount); // 15개 확인
+		
+		//2. paginationInfo만들기
+		PaginationInfo paginationInfo = new PaginationInfo();
+		paginationInfo.setTotalRecordCount(totalRecordCount);
+		paginationInfo.setRecordCountPerPage(4);
+		paginationInfo.setPageSize(2);
+		paginationInfo.setCurrentPageNo(pageNo);
+		//계산
+		int startPage = paginationInfo.getFirstRecordIndex();
+		int lastPage = paginationInfo.getRecordCountPerPage();
+		//DB로 보낼 값
+		PagingDTO paging = new PagingDTO(startPage,lastPage);
+		
+		
+		List<BoardDTO> board = boardService.list(paging);
+		mv.addObject("paginationInfo" , paginationInfo);
+		mv.addObject("pageNo", pageNo);
 		// jsp에 전달
 		mv.addObject("board", board); // 사용할 이름, 값
-
+		
 		return mv;
 	}
 

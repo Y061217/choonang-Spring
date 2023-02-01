@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.poseidon.web.dto.BoardDTO;
+import com.poseidon.web.dto.PagingDTO;
 import com.poseidon.web.dao.BoardDAO;
 
 @Service
@@ -14,9 +15,9 @@ public class BoardService {
 	@Autowired
 	private BoardDAO boardDAO;
 
-	public List<BoardDTO> list() {
+	public List<BoardDTO> list(PagingDTO paging) {
 
-		return boardDAO.list();
+		return boardDAO.list(paging);
 	}
 
 	public BoardDTO detail(BoardDTO dto) {
@@ -61,6 +62,11 @@ public class BoardService {
 	public int upcmt(BoardDTO upcmt) {
 		return boardDAO.upcmt(upcmt);
 		
+	}
+
+	public int totalCount() {
+		// TODO Auto-generated method stub
+		return boardDAO.totalCount();
 	}
 
 

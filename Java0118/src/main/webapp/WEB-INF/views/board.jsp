@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Board</title>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -36,6 +38,11 @@ a {
 function write1() {
 	location.href="./write";
 }
+
+function linkPage(pageNo){
+   location.href = "/web/board?pageNo="+pageNo;
+}   
+
 </script>
 </head>
 
@@ -65,6 +72,11 @@ function write1() {
 			</c:forEach>
 		</tbody>
 	</table>
+	<div style="width : 100%; height : 30px; text-align:center;">
+	<ui:pagination paginationInfo = "${paginationInfo}"
+			type="image"
+			jsFunction="linkPage"/>
+	</div>
 
 	<c:if test="${sessionScope.id ne null}"><button type="button" class="btn btn-primary" onclick="write1()">글쓰기</button></c:if>	
 </body>

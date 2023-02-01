@@ -12,6 +12,8 @@
 		<typeAlias type="com.poseidon.web.dto.LoginDTO" alias="loginDTO"/>
 		
 		<typeAlias type="com.poseidon.web.dto.JoinDTO" alias="joinDTO"/>
+		
+		<typeAlias type="com.poseidon.web.dto.PagingDTO" alias="pagingDTO"/>
 	</typeAliases>
 	
 	
