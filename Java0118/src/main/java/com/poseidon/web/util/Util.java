@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Util {
 	
-	public int str2Int(String str) {
+	public static int str2Int(String str) {
 		return Integer.parseInt(str);
 	}
 	

@@ -21,6 +21,7 @@ body {
 	width: 75px;
 	line-height: 30px;
 	box-sizing: border-box;
+	text-align : center;
 }
 
 .menu ul li:hover {
@@ -33,6 +34,7 @@ body {
 		<li onclick="location.href = './member'">멤버 목록</li>
 		<li onclick="location.href = './board'">게시판</li>
 		<li onclick="location.href = './draw'">뽑기</li>
+		<li onclick="location.href = './notice'">공지사항</li>
 		
 		<c:choose>
 		

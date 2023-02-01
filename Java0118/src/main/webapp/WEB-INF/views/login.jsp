@@ -13,12 +13,12 @@
 <script>
 	// 정석
 $(document).ready(function() {
-	alert("test");
+	//alert("test");
 });
 
 	// 준 실무
 $().ready(function() {
-	alert("test2");
+	//alert("test2");
 });
 
 	//실무 최대 축약형

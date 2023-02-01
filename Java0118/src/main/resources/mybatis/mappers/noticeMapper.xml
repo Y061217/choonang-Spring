@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    <mapper namespace="notice">
+    
+    <select id="list" resultType="noticeDTO" parameterType="pagingDTO">
+    SELECT *
+    From notice
+    order by n_no desc
+    LIMIT #{startPage}, #{lastPage}
+    </select>
+    
+    <select id="detail" parameterType="int" resultType="noticeDTO">
+    SELECT *
+    From notice
+    where notice.n_no = #{no};
+    </select>
+    
+    <update id="readup" parameterType="int">
+    update notice set n_read = n_read + 1  where notice.n_no = #{no};
+    </update>
+    
+    <select id="totalCount" resultType="int">
+    select count(n_no)
+    from notice
+    </select>
+    
+    </mapper>
