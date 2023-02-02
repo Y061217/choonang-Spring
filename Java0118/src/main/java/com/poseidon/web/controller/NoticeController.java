@@ -3,11 +3,13 @@ package com.poseidon.web.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -54,5 +56,27 @@ public class NoticeController {
 		int no = Util.str2Int(request.getParameter("no"));
 		n_detail.addAttribute("n_val", noticeservice.detail(no));
 		return "n_detail";
+	}
+	
+	@GetMapping("/n_write")
+	public String n_write(HttpSession session) {
+		
+		return "n_write";
+	}
+	
+	@PostMapping("/n_write")
+	public String n_write(HttpServletRequest request , HttpSession session) {
+		String n_title = request.getParameter("title");
+		String n_content = request.getParameter("content");
+		String admin_name = (String) session.getAttribute("name");
+		NoticeDTO noticedto = new NoticeDTO();
+		noticedto.setN_title(n_title);
+		noticedto.setN_content(n_content);
+		noticedto.setAdmin_name(admin_name);
+			
+		noticeservice.n_write(noticedto);
+		
+		
+		return "redirect:/notice";
 	}
 }

@@ -28,6 +28,11 @@ public class NoticeService {
 		// TODO Auto-generated method stub
 		return noticedao.totalCount();
 	}
+
+	public void n_write(NoticeDTO noticedto) {
+		// TODO Auto-generated method stub
+		noticedao.n_write(noticedto);
+	}
 	
 	
 }

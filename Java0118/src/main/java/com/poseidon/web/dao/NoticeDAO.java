@@ -29,6 +29,11 @@ public class NoticeDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("notice.totalCount");
 	}
+
+	public void n_write(NoticeDTO noticedto) {
+		// TODO Auto-generated method stub
+		sqlSession.insert("notice.n_write" , noticedto);
+	}
 	
 	
 	
