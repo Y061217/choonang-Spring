@@ -27,7 +27,15 @@
     from notice
     </select>
     
-    <insert id="n_write" parameterType="noticeDTO">
-    INSERT INTO notice SET n_title = #{n_title} , n_content = #{n_content} , admin_name = #{admin_name} , n_date = now();
+    <insert id="write" parameterType="noticeDTO">
+    INSERT INTO notice SET n_title = #{n_title} , n_content = #{n_content} , admin_name = #{admin_name} , n_date = now()<if test="n_file != null">, n_file = #{n_file}</if>
+    <selectKey resultType="integer" keyProperty="n_no" order="AFTER">
+    	SELECT LAST_INSERT_ID()
+    </selectKey>
     </insert>
+    
+    <insert id="filesave" parameterType="noticeDTO">
+    Insert into upfile SET filename = #{n_file} , n_no = #{n_no}
+    </insert>
+    
     </mapper>

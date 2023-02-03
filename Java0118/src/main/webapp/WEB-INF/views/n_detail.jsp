@@ -35,5 +35,6 @@ ${n_val.n_date}
 <p>
 ${n_val.n_content}
 </p>
+<image src="/upfile/${n_file}">
 </body>
 </html>

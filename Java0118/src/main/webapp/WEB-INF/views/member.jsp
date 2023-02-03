@@ -7,7 +7,16 @@
 
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script>
+$(function(){
+	$("#excelBtn").click(function(){
+		//jQuery넣어주세요
+		alert("다운로드를 클릭했습니다.");
+		location.href="/fileDown.xls";
+	});
+});
+</script>
 </head>
 
 <body>
@@ -33,6 +42,8 @@
 			</tr>
 		</c:forEach>
 	</table>
+	<br>
+	<button id = "excelBtn" class = "btn btn-primary">엑셀 파일로 내려받기</button>
 	<br>
 	<c:forEach begin="1" end="10" step="2" var="i">${i }<br>
 	</c:forEach>

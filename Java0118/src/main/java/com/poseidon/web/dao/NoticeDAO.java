@@ -30,9 +30,14 @@ public class NoticeDAO {
 		return sqlSession.selectOne("notice.totalCount");
 	}
 
-	public void n_write(NoticeDTO noticedto) {
+	public int write(NoticeDTO noticedto) {
 		// TODO Auto-generated method stub
-		sqlSession.insert("notice.n_write" , noticedto);
+		return sqlSession.insert("notice.write" , noticedto);
+	}
+
+	public void filesave(NoticeDTO noticedto) {
+		// TODO Auto-generated method stub
+		sqlSession.insert("notice.filesave", noticedto);
 	}
 	
 	

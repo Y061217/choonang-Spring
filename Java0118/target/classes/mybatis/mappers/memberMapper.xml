@@ -12,5 +12,6 @@
 		SELECT * FROM member
 	</select>
 
+
 </mapper>
 

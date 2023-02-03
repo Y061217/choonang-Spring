@@ -60,11 +60,13 @@ textarea {
 		<section>
 			<article>
 				<h1>이곳에서 글을 작성하고 저장할 수 있습니다.</h1>
-				<form action="./n_write" method="post">
+				<form action="./n_write" method="post" enctype="multipart/form-data">
 					<input type="text" name="title" placeholder="이곳에 제목을 입력"> <br>
 					<textarea id="summernote" name="content" placeholder="이곳에 내용을 입력"></textarea>
 					<br>
+					<input type="file" name="file" accept="image/*">
 					<button type="submit" class="btn btn-primary">저장하기</button>
+					
 				</form>
 			</article>
 		</section>

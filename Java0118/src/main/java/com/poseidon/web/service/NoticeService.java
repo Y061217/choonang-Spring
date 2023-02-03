@@ -29,9 +29,15 @@ public class NoticeService {
 		return noticedao.totalCount();
 	}
 
-	public void n_write(NoticeDTO noticedto) {
+	public int write(NoticeDTO noticedto) {
 		// TODO Auto-generated method stub
-		noticedao.n_write(noticedto);
+		return noticedao.write(noticedto);
+		
+	}
+
+	public void filesave(NoticeDTO noticedto) {
+		// TODO Auto-generated method stub
+		noticedao.filesave(noticedto);
 	}
 	
 	

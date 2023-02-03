@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Notice</title>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
@@ -47,7 +48,7 @@
 		<div class="container text-center">
 			<div class="row align-items-start">
 				<div class="col">${ntc.n_no}</div>
-				<div class="col-5"><a href="./n_detail?no=${ntc.n_no}">${ntc.n_title}</a></div>
+				<div class="col-5"><a href="./n_detail?no=${ntc.n_no}">${ntc.n_title}</a><c:if test="${ntc.n_file != null}"><small><i class="xi-image"></i></small></c:if></div>
 				<div class="col">${ntc.admin_name}</div>
 				<div class="col">${ntc.n_date}</div>
 				<div class="col">${ntc.n_read}</div>
